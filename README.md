@@ -1,6 +1,6 @@
 Voici mon projet python : Puissance 4
 
-Pour commencer une partie de puissance 4, on désigne le premier joueur. Celui­ci met un de ses jetons de couleur dans l’une des colonnes de son choix. Le jeton tombe alors en bas de la colonne.
+Pour commencer une partie de puissance 4, on désigne le premier joueur. Celui ci met un de ses jetons de couleur dans l’une des colonnes de son choix. Le jeton tombe alors en bas de la colonne.
 
 Le deuxième joueur insère à son tour son jeton, de l’autre couleur dans la colonne de son choix. Et ainsi de suite jusqu’à obtenir une rangée de 4 jetons de même couleur.
 
