@@ -1,0 +1,179 @@
+"""Création de Yannis Bronnec"""
+
+
+import numpy as np
+import pygame
+import sys
+import math
+
+"""-------------------------------------------------------------------------------------"""
+    # Définition des couleurs en RVB
+
+BLEU = (49,140,231)
+NOIR = (0,0,0)
+VERT = (130,196,108)
+ORANGE = (255,127,0)
+
+    # On définit le nombre de ligne et colonne
+
+nombre_de_lignes = 6
+nombre_de_colonnes = 7
+
+
+    # Création d'une liste de liste
+
+def create_board():
+	plateau = np.zeros((nombre_de_lignes,nombre_de_colonnes))
+	return plateau
+
+def lacher_piece(plateau, ligne, col, piece):
+	plateau[ligne][col] = piece
+
+def si_location_valide(plateau, col):
+	return plateau[nombre_de_lignes-1][col] == 0
+
+def obtenir_la_ligne_ouverte_suivante(plateau, col):
+	for r in range(nombre_de_lignes):
+		if plateau[r][col] == 0:
+			return r
+
+def print_plateau(plateau):
+	print(np.flip(plateau, 0))
+
+def Mouvement_gagnant(plateau, piece):
+	
+    # Regarde les position horizontale pour la victoire
+    
+	for c in range(nombre_de_colonnes-3):
+		for r in range(nombre_de_lignes):
+			if plateau[r][c] == piece and plateau[r][c+1] == piece and plateau[r][c+2] == piece and plateau[r][c+3] == piece:
+				return True
+
+	# Regarde les position vertical pour la victoire
+    
+	for c in range(nombre_de_colonnes):
+		for r in range(nombre_de_lignes-3):
+			if plateau[r][c] == piece and plateau[r+1][c] == piece and plateau[r+2][c] == piece and plateau[r+3][c] == piece:
+				return True
+
+	# Regarde les diagonales vers la droite
+    
+	for c in range(nombre_de_colonnes-3):
+		for r in range(nombre_de_lignes-3):
+			if plateau[r][c] == piece and plateau[r+1][c+1] == piece and plateau[r+2][c+2] == piece and plateau[r+3][c+3] == piece:
+				return True
+
+	# Regarde les diagonales vers la gauche
+    
+	for c in range(nombre_de_colonnes-3):
+		for r in range(3, nombre_de_lignes):
+			if plateau[r][c] == piece and plateau[r-1][c+1] == piece and plateau[r-2][c+2] == piece and plateau[r-3][c+3] == piece:
+				return True
+            
+    # On dessine le plateau avec pygame
+
+def dessin_plateau(board):
+	for c in range(nombre_de_colonnes):
+		for r in range(nombre_de_lignes):
+			pygame.draw.rect(screen, BLEU, (c*SQUARESIZE, r*SQUARESIZE+SQUARESIZE, SQUARESIZE, SQUARESIZE))
+			pygame.draw.circle(screen, NOIR, (int(c*SQUARESIZE+SQUARESIZE/2), int(r*SQUARESIZE+SQUARESIZE+SQUARESIZE/2)), RADIUS)
+	
+	for c in range(nombre_de_colonnes):
+		for r in range(nombre_de_lignes):		
+			if board[r][c] == 1:
+				pygame.draw.circle(screen, VERT, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
+			elif board[r][c] == 2: 
+				pygame.draw.circle(screen, ORANGE, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
+	pygame.display.update()
+
+
+plateau = create_board()
+print_plateau(plateau)
+game_over = False
+turn = 0
+
+pygame.init()
+
+SQUARESIZE = 100
+
+width = nombre_de_colonnes * SQUARESIZE
+height = (nombre_de_lignes+1) * SQUARESIZE
+
+size = (width, height)
+
+RADIUS = int(SQUARESIZE/2 - 5)
+
+screen = pygame.display.set_mode(size)
+dessin_plateau(plateau)
+pygame.display.update()
+
+          # Création de la police d'écriture du texte game over 
+
+myfont = pygame.font.SysFont("comic sans ms", 75)
+
+while not game_over:
+
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			sys.exit()
+
+		if event.type == pygame.MOUSEMOTION:
+			pygame.draw.rect(screen, NOIR, (0,0, width, SQUARESIZE))
+			posx = event.pos[0]
+			if turn == 0:
+				pygame.draw.circle(screen, VERT, (posx, int(SQUARESIZE/2)), RADIUS)
+			else: 
+				pygame.draw.circle(screen, ORANGE, (posx, int(SQUARESIZE/2)), RADIUS)
+		pygame.display.update()
+
+    # Déclenche une action si on appuie sur le bouton gauche de la souris
+
+		if event.type == pygame.MOUSEBUTTONDOWN:
+			pygame.draw.rect(screen, NOIR, (0,0, width, SQUARESIZE))
+			
+            # print(event.pos)
+            
+            
+			# Demande l'action du joueur 1
+            
+			if turn == 0:
+				posx = event.pos[0]
+				col = int(math.floor(posx/SQUARESIZE))
+
+				if si_location_valide(plateau, col):
+					ligne = obtenir_la_ligne_ouverte_suivante(plateau, col)
+					lacher_piece(plateau, ligne, col, 1)
+
+					if Mouvement_gagnant(plateau, 1):
+						label = myfont.render("Le joueur 2 a gagné !", 1, VERT)
+						screen.blit(label, (4,-6))
+						game_over = True
+
+
+			# Demande l'action du joueur 2
+            
+			else:				
+				posx = event.pos[0]
+				col = int(math.floor(posx/SQUARESIZE))
+
+				if si_location_valide(plateau, col):
+					ligne = obtenir_la_ligne_ouverte_suivante(plateau, col)
+					lacher_piece(plateau, ligne, col, 2)
+
+					if Mouvement_gagnant(plateau, 2):
+						label = myfont.render("Le joueur 2 a gagné !", 1, ORANGE)
+						screen.blit(label, (4,-6))
+						game_over = True
+
+			print_plateau(plateau)
+			dessin_plateau(plateau)
+
+            # Création du nombre de tour pour demander l'action des joueurs
+        
+			turn += 1
+			turn = turn % 2
+
+            # Le game over fait arreter le programme 
+
+			if game_over:
+				pygame.time.wait(3000)
