@@ -15,4 +15,6 @@ Création du plateau de jeux
 Création des pions de jeux
 Vérifier la position des pions verticalement, horizontalement et diagonalement
 création de l'écran game over pour le joueur 1 et 2
+Demande au joueur de placer son pions
 
+Liste de liste
