@@ -1,4 +1,4 @@
-Voici mon projet python : Puissance 4
+**Voici mon projet python : Puissance 4**
 
 Pour commencer une partie de puissance 4, on désigne le premier joueur. Celui ci met un de ses jetons de couleur dans l’une des colonnes de son choix. Le jeton tombe alors en bas de la colonne.
 
@@ -10,7 +10,7 @@ Si lors d’une partie, tous les jetons sont joués sans qu’il y est d’align
 
 __________________________________________________________________________________________________________________________________________________________
 
-Décomposition en sous problème :
+**Décomposition en sous problème :**
 
 Création du plateau de jeux
 Création des pions de jeux
@@ -22,7 +22,7 @@ Liste de liste
 
 __________________________________________________________________________________________________________________________________________________________
 
-Minimum viable Product :
+**Minimum viable Product :**
 
 Création d'un plateau de jeux avec des listes de liste, pourvoir réperer quand 4 pions sont alligné de quelconque facon, mais egalement faire un système de tour pour demander à chaque joueur à la suite de poser son pion pour que celui ci tombe en bas.
 
