@@ -1,12 +1,26 @@
 """Création de Yannis Bronnec"""
 
-
+    
+# Pour le plateau de jeux
+    
 import numpy as np
+
+# Pour l'interface graphique
+
 import pygame
-import sys
+
+# Pour les préconfiguration de calcul
+
 import math
 
+# Pour sortir de python avec sys.exit() 
+
+import sys
+
+
+
 """-------------------------------------------------------------------------------------"""
+
     # Définition des couleurs en RVB
 
 BLEU = (49,140,231)
@@ -20,17 +34,23 @@ nombre_de_lignes = 6
 nombre_de_colonnes = 7
 
 
-    # Création d'une liste de liste
+    # Création d'une liste de liste et l'affecte à la variable plateau
 
 def create_board():
-	plateau = np.zeros((nombre_de_lignes,nombre_de_colonnes))
+	plateau = np.zeros((nombre_de_lignes,nombre_de_colonnes)) # np.zeros permet de créer une liste de liste avec les variables
 	return plateau
+
+    # Permet de choisir à quel endroit mettre le pion
 
 def lacher_piece(plateau, ligne, col, piece):
 	plateau[ligne][col] = piece
 
+    # Retire un nombre où le pion attérit 
+
 def si_location_valide(plateau, col):
 	return plateau[nombre_de_lignes-1][col] == 0
+
+    # Vérifie si chaque ligne du plateau est = 0 (donc vide)
 
 def obtenir_la_ligne_ouverte_suivante(plateau, col):
 	for r in range(nombre_de_lignes):
@@ -39,9 +59,13 @@ def obtenir_la_ligne_ouverte_suivante(plateau, col):
 
 def print_plateau(plateau):
 	print(np.flip(plateau, 0))
+    
+    # On définit tout les mouvements gagnant
 
 def Mouvement_gagnant(plateau, piece):
-	
+    
+        
+       
     # Regarde les position horizontale pour la victoire
     
 	for c in range(nombre_de_colonnes-3):
@@ -55,6 +79,8 @@ def Mouvement_gagnant(plateau, piece):
 		for r in range(nombre_de_lignes-3):
 			if plateau[r][c] == piece and plateau[r+1][c] == piece and plateau[r+2][c] == piece and plateau[r+3][c] == piece:
 				return True
+            
+
 
 	# Regarde les diagonales vers la droite
     
@@ -62,6 +88,8 @@ def Mouvement_gagnant(plateau, piece):
 		for r in range(nombre_de_lignes-3):
 			if plateau[r][c] == piece and plateau[r+1][c+1] == piece and plateau[r+2][c+2] == piece and plateau[r+3][c+3] == piece:
 				return True
+            
+
 
 	# Regarde les diagonales vers la gauche
     
@@ -70,40 +98,56 @@ def Mouvement_gagnant(plateau, piece):
 			if plateau[r][c] == piece and plateau[r-1][c+1] == piece and plateau[r-2][c+2] == piece and plateau[r-3][c+3] == piece:
 				return True
             
+             
+
+            
     # On dessine le plateau avec pygame
 
 def dessin_plateau(board):
 	for c in range(nombre_de_colonnes):
 		for r in range(nombre_de_lignes):
-			pygame.draw.rect(screen, BLEU, (c*SQUARESIZE, r*SQUARESIZE+SQUARESIZE, SQUARESIZE, SQUARESIZE))
-			pygame.draw.circle(screen, NOIR, (int(c*SQUARESIZE+SQUARESIZE/2), int(r*SQUARESIZE+SQUARESIZE+SQUARESIZE/2)), RADIUS)
+			pygame.draw.rect(écran, BLEU, (c*SQUARESIZE, r*SQUARESIZE+SQUARESIZE, SQUARESIZE, SQUARESIZE))
+			pygame.draw.circle(écran, NOIR, (int(c*SQUARESIZE+SQUARESIZE/2), int(r*SQUARESIZE+SQUARESIZE+SQUARESIZE/2)), RADIUS)
 	
+    # Dessin des pions de jeux
+    
 	for c in range(nombre_de_colonnes):
 		for r in range(nombre_de_lignes):		
 			if board[r][c] == 1:
-				pygame.draw.circle(screen, VERT, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
+				pygame.draw.circle(écran, VERT, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
 			elif board[r][c] == 2: 
-				pygame.draw.circle(screen, ORANGE, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
+				pygame.draw.circle(écran, ORANGE, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
 	pygame.display.update()
 
 
+    
+
+# On donne à la variable plateau les propriétes des fonctions
+
 plateau = create_board()
 print_plateau(plateau)
+
+# On définit game over en faux et on met les tours à 0
+
 game_over = False
 turn = 0
 
-pygame.init()
+pygame.init() # On initialise les modules importé de pygame
 
-SQUARESIZE = 100
+SQUARESIZE = 100 # On définit la taille des carrés
 
-width = nombre_de_colonnes * SQUARESIZE
+# On met la forme pour chaque endroit du plateau
+
+width = nombre_de_colonnes * SQUARESIZE 
 height = (nombre_de_lignes+1) * SQUARESIZE
 
-size = (width, height)
+""""-"""
+
+taille = (width, height)
 
 RADIUS = int(SQUARESIZE/2 - 5)
 
-screen = pygame.display.set_mode(size)
+écran = pygame.display.set_mode(taille)
 dessin_plateau(plateau)
 pygame.display.update()
 
@@ -118,18 +162,18 @@ while not game_over:
 			sys.exit()
 
 		if event.type == pygame.MOUSEMOTION:
-			pygame.draw.rect(screen, NOIR, (0,0, width, SQUARESIZE))
+			pygame.draw.rect(écran, NOIR, (0,0, width, SQUARESIZE))
 			posx = event.pos[0]
 			if turn == 0:
-				pygame.draw.circle(screen, VERT, (posx, int(SQUARESIZE/2)), RADIUS)
+				pygame.draw.circle(écran, VERT, (posx, int(SQUARESIZE/2)), RADIUS)
 			else: 
-				pygame.draw.circle(screen, ORANGE, (posx, int(SQUARESIZE/2)), RADIUS)
+				pygame.draw.circle(écran, ORANGE, (posx, int(SQUARESIZE/2)), RADIUS)
 		pygame.display.update()
 
     # Déclenche une action si on appuie sur le bouton gauche de la souris
 
 		if event.type == pygame.MOUSEBUTTONDOWN:
-			pygame.draw.rect(screen, NOIR, (0,0, width, SQUARESIZE))
+			pygame.draw.rect(écran, NOIR, (0,0, width, SQUARESIZE))
 			
             # print(event.pos)
             
@@ -146,7 +190,7 @@ while not game_over:
 
 					if Mouvement_gagnant(plateau, 1):
 						label = myfont.render("Le joueur 2 a gagné !", 1, VERT)
-						screen.blit(label, (4,-6))
+						écran.blit(label, (4,-6))
 						game_over = True
 
 
@@ -154,7 +198,7 @@ while not game_over:
             
 			else:				
 				posx = event.pos[0]
-				col = int(math.floor(posx/SQUARESIZE))
+				col = int(math.floor(posx/SQUARESIZE)) # Math.floor permet de renvoyer des nombres entiers
 
 				if si_location_valide(plateau, col):
 					ligne = obtenir_la_ligne_ouverte_suivante(plateau, col)
@@ -162,7 +206,7 @@ while not game_over:
 
 					if Mouvement_gagnant(plateau, 2):
 						label = myfont.render("Le joueur 2 a gagné !", 1, ORANGE)
-						screen.blit(label, (4,-6))
+						écran.blit(label, (4,-6))
 						game_over = True
 
 			print_plateau(plateau)
@@ -177,3 +221,4 @@ while not game_over:
 
 			if game_over:
 				pygame.time.wait(3000)
+                
