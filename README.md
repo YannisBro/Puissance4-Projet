@@ -24,7 +24,7 @@ ________________________________________________________________________________
 
 Minimum viable Product :
 
-Création d'un plateau de jeux avec des listes de liste, pourvoir réperer quand 4 pions sont alligné de quelconque facon, mais egalement faire un système de tour pour demander à chaque joueur à la suite de poser son pion pour que celui ci tombe en bas
+Création d'un plateau de jeux avec des listes de liste, pourvoir réperer quand 4 pions sont alligné de quelconque facon, mais egalement faire un système de tour pour demander à chaque joueur à la suite de poser son pion pour que celui ci tombe en bas.
 
-pour cela je vais utiliser les fonctions : NP.zeros de la bibliothèque numpy afin de créer une liste de liste, mais aussi de la l'affection de nombre à une variable à chaque tour avec "+=", 
+pour cela je vais utiliser les fonctions : NP.zeros de la bibliothèque numpy afin de créer une liste de liste, mais aussi de la l'affection de nombre à une variable à chaque tour avec "+=", je vais également utiliser des fonction avec def et les boucles for.
 
