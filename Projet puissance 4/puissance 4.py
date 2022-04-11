@@ -107,16 +107,16 @@ def dessin_plateau(board):
 	for c in range(nombre_de_colonnes):
 		for r in range(nombre_de_lignes):
 			pygame.draw.rect(écran, BLEU, (c*SQUARESIZE, r*SQUARESIZE+SQUARESIZE, SQUARESIZE, SQUARESIZE))
-			pygame.draw.circle(écran, NOIR, (int(c*SQUARESIZE+SQUARESIZE/2), int(r*SQUARESIZE+SQUARESIZE+SQUARESIZE/2)), RADIUS)
+			pygame.draw.circle(écran, NOIR, (int(c*SQUARESIZE+SQUARESIZE/2), int(r*SQUARESIZE+SQUARESIZE+SQUARESIZE/2)), Rayon)
 	
     # Dessin des pions de jeux
     
 	for c in range(nombre_de_colonnes):
 		for r in range(nombre_de_lignes):		
 			if board[r][c] == 1:
-				pygame.draw.circle(écran, VERT, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
+				pygame.draw.circle(écran, VERT, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), Rayon)
 			elif board[r][c] == 2: 
-				pygame.draw.circle(écran, ORANGE, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
+				pygame.draw.circle(écran, ORANGE, (int(c*SQUARESIZE+SQUARESIZE/2), height-int(r*SQUARESIZE+SQUARESIZE/2)), Rayon)
 	pygame.display.update()
 
 
@@ -141,55 +141,57 @@ SQUARESIZE = 100 # On définit la taille des carrés
 width = nombre_de_colonnes * SQUARESIZE 
 height = (nombre_de_lignes+1) * SQUARESIZE
 
-""""-"""
 
-taille = (width, height)
+taille = (width, height) # On définit la taille grace au nombre de case en ligne et en colonne
 
-RADIUS = int(SQUARESIZE/2 - 5)
+Rayon = int(SQUARESIZE/2 - 5) # On reduit la taille des cercles pour faire des endroits vides
 
-écran = pygame.display.set_mode(taille)
-dessin_plateau(plateau)
+écran = pygame.display.set_mode(taille) # On définit la taille de la fenetre
+dessin_plateau(plateau) # Puis on importe le plateau
 pygame.display.update()
 
           # Création de la police d'écriture du texte game over 
 
 myfont = pygame.font.SysFont("comic sans ms", 75)
 
+# Tant que la partie n'est pas terminé python execute en permanance ce bout de programme
+
 while not game_over:
 
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
-			sys.exit()
+			sys.exit() # Pour quitter le jeux
 
-		if event.type == pygame.MOUSEMOTION:
-			pygame.draw.rect(écran, NOIR, (0,0, width, SQUARESIZE))
+		if event.type == pygame.MOUSEMOTION: # Permet de suivre le mouvement de la souris
+			pygame.draw.rect(écran, NOIR, (0,0, width, SQUARESIZE)) # Dessine le fond
 			posx = event.pos[0]
-			if turn == 0:
-				pygame.draw.circle(écran, VERT, (posx, int(SQUARESIZE/2)), RADIUS)
+			if turn == 0: # Permet de savoir à qui est le tour
+				pygame.draw.circle(écran, VERT, (posx, int(SQUARESIZE/2)), Rayon) # Dessine un pion vert qui suit la souris
 			else: 
-				pygame.draw.circle(écran, ORANGE, (posx, int(SQUARESIZE/2)), RADIUS)
-		pygame.display.update()
+				pygame.draw.circle(écran, ORANGE, (posx, int(SQUARESIZE/2)), Rayon) # Dessine un pion orange qui suit la souris
+		pygame.display.update() # Met à jour la frame pour effectuer le changement sur l'écran
+        
+        
 
-    # Déclenche une action si on appuie sur le bouton gauche de la souris
+    # Desine le fond si on appuie sur le bouton gauche de la souris
 
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			pygame.draw.rect(écran, NOIR, (0,0, width, SQUARESIZE))
 			
-            # print(event.pos)
             
             
 			# Demande l'action du joueur 1
             
 			if turn == 0:
 				posx = event.pos[0]
-				col = int(math.floor(posx/SQUARESIZE))
+				col = int(math.floor(posx/SQUARESIZE)) # Math.floor permet de renvoyer des nombres entiers pour choisir une colonne en particulier sans faire un entre deux
 
-				if si_location_valide(plateau, col):
-					ligne = obtenir_la_ligne_ouverte_suivante(plateau, col)
-					lacher_piece(plateau, ligne, col, 1)
+				if si_location_valide(plateau, col): # Vérifie si le placement est valide
+					ligne = obtenir_la_ligne_ouverte_suivante(plateau, col) # Regarde la colonne pour voir ses disponibilités
+					lacher_piece(plateau, ligne, col, 1) # Lache le pion au point vide le plus bas
 
 					if Mouvement_gagnant(plateau, 1):
-						label = myfont.render("Le joueur 2 a gagné !", 1, VERT)
+						label = myfont.render("Le joueur 2 a gagné !", 1, VERT) # Affiche la victoire si le joueur aligne 4 pions
 						écran.blit(label, (4,-6))
 						game_over = True
 
@@ -198,7 +200,7 @@ while not game_over:
             
 			else:				
 				posx = event.pos[0]
-				col = int(math.floor(posx/SQUARESIZE)) # Math.floor permet de renvoyer des nombres entiers
+				col = int(math.floor(posx/SQUARESIZE)) # Math.floor permet de renvoyer des nombres entiers pour choisir une colonne en particulier sans faire un entre deux
 
 				if si_location_valide(plateau, col):
 					ligne = obtenir_la_ligne_ouverte_suivante(plateau, col)
@@ -214,7 +216,7 @@ while not game_over:
 
             # Création du nombre de tour pour demander l'action des joueurs
         
-			turn += 1
+			turn += 1 # Rajoute un tour à chaque passage
 			turn = turn % 2
 
             # Le game over fait arreter le programme 
