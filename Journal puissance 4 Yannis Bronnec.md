@@ -19,11 +19,15 @@ ________________________________________________________________________________
 _Avancé :_
 
 - Création de fonction pour placer un pion sur le plateau
+- Fonction pour remplacer une case vide
+- Fonction pour choisir un emplacement
+- Fonction pour vérifier chaque emplacement du plateau
 
 
 _Problème rencontré :_
 
 - Recherche afin de comprendre comment faire pour choisir un emplacement pour placer son pion
+- Recherche pour comprend comment procèder 
 
 _____________________________________________________________________________________________________________________________________________________________
 
