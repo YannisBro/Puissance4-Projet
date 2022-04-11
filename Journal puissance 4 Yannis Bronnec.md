@@ -9,3 +9,14 @@ _Avancé :_
 - Création d'un liste de liste avec 6 ligne et 7 colonne (en utilisant la bibliothèque numpy "np.zero")
 
 _Problème rencontré :_
+
+- Recherche des bibliothèques nécessaire à l'interface graphique et pour les maths
+
+
+**JOUR 2**
+
+_Avancé :_
+
+
+
+_Problème rencontré :_
