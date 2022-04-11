@@ -18,9 +18,12 @@ ________________________________________________________________________________
 
 _Avancé :_
 
+- Création de fonction pour placer un pion sur le plateau
 
 
 _Problème rencontré :_
+
+- Recherche afin de comprendre comment faire pour choisir un emplacement pour placer son pion
 
 _____________________________________________________________________________________________________________________________________________________________
 
