@@ -12,6 +12,7 @@ _Problème rencontré :_
 
 - Recherche des bibliothèques nécessaire à l'interface graphique et pour les maths
 
+_____________________________________________________________________________________________________________________________________________________________
 
 **JOUR 2**
 
