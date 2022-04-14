@@ -70,7 +70,7 @@ def Mouvement_gagnant(plateau, piece):
     
     for c in range(nombre_de_colonnes-3):
             for r in range(nombre_de_lignes):
-                        if plateau[r][c] == piece and plateau[r][c+1] == piece and plateau[r][c+2] == piece and plateau[r][c+3] == piece:
+                        if plateau[r][c] == piece and plateau[r][c+1] == piece and plateau[r][c+2] == piece and plateau[r][c+3] == piece: # On regarde si 4 pions se suivent en rajoutant +1
                                         return True
 
 	# Regarde les position vertical pour la victoire
@@ -97,9 +97,10 @@ def Mouvement_gagnant(plateau, piece):
             for r in range(3, nombre_de_lignes):
                         if plateau[r][c] == piece and plateau[r-1][c+1] == piece and plateau[r-2][c+2] == piece and plateau[r-3][c+3] == piece:
                                         return True
-            
+                                        
+                            
              
-
+"""---------------------------------------------------------------------------------------------"""
             
     # On dessine le plateau avec pygame
 
@@ -235,4 +236,3 @@ while not game_over:
 
                 if game_over:
                     pygame.time.wait(3000)
-                
