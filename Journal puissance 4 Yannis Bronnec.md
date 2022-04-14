@@ -35,9 +35,13 @@ ________________________________________________________________________________
 
 _Avancé :_
 
-
+- Fonction pour verifier les alignements verticale, horizontale et diagonale
+- Début de l'interface graphique en créant la fenetre de jeux
 
 _Problème rencontré :_
+
+- Recherche sur comment créer une interface graphique avec pygame
+- Comment détecter un alignement
 
 _____________________________________________________________________________________________________________________________________________________________
 
