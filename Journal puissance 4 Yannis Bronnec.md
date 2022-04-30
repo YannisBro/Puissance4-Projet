@@ -49,6 +49,75 @@ ________________________________________________________________________________
 
 _Avancé :_
 
-
+- Dessin des pions sur pygame 
+- Définition du Game Over
+- Dessin du plateau sur pygame
 
 _Problème rencontré :_
+
+- Créer des trous dans le plateau 
+- Dessiner sur Pygame
+
+_____________________________________________________________________________________________________________________________________________________________
+
+**JOUR 5**
+
+_Avancé :_
+
+- Affectation d'action à des touches
+- Création des événements menant à un game over
+
+_Problème rencontré :_
+
+- Touche bug puis réglé 
+_____________________________________________________________________________________________________________________________________________________________
+
+**JOUR 6**
+
+_Avancé :_
+
+- Création d'une boucle pour chaque tour (j1 et j2)
+- Place le pion dans le tableau dessiné quand on choisit une colonne 
+
+_Problème rencontré :_
+
+- Remplacer le vide par la couleur du pion
+- Effacer la prévisualisions du pion 
+_____________________________________________________________________________________________________________________________________________________________
+
+**JOUR 7**
+
+_Avancé :_
+
+- Création d'une fonction pour choisir une colonne sans être exactement dessus
+- Création des variables qui demandent l'action du joueur auquel appartient le tour
+
+_Problème rencontré :_
+
+- Pouvoir choisir une colonne dont ont est le plus proche
+
+_____________________________________________________________________________________________________________________________________________________________
+
+**JOUR 8**
+
+_Avancé :_
+
+- Ajout des conséquences du Game over
+- Derniers petits ajouts et réglages de bug
+
+_Problème rencontré :_
+
+- Rencontre de bug puis fixé 
+
+_____________________________________________________________________________________________________________________________________________________________
+
+**JOUR 9**
+
+_Avancé :_
+
+- Ajout des boutons pour fermer la fenêtre 
+- Derniers petits ajouts et réglages de bug
+
+_Problème rencontré :_
+
+- Réglages des derniers petits bug
